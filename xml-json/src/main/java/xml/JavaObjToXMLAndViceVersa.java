@@ -20,6 +20,9 @@ import xml.pojos.Bookstore;
 //@XmlAttribute: This will create the Object property as an attribute.
 //@XmlElement(name = “ABC”): This will create the element with name “ABC”
 
+//  m.marshal(bookstore, new File(BOOKSTORE_XML));
+//  un.unmarshal(new File(BOOKSTORE_XML));
+
 public class JavaObjToXMLAndViceVersa {
 
 	private static final String BOOKSTORE_XML = "bookstore.xml";

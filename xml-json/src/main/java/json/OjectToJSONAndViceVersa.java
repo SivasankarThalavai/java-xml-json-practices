@@ -15,6 +15,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import json.pojos.Post;
 import json.pojos.Tag;
 
+
+// mapper.writeValue(fileOutputStream, bookstore);		
+// mapper.readValue(fileInputStream, Post.class);
+
 public class OjectToJSONAndViceVersa {
 
 	private static final String BOOKSTORE_JSON = "posts.json";
