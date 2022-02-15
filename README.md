@@ -1,5 +1,5 @@
 # java-xml-json-practices
 
-XML to Object and Object to XML conversion using JAXB
+XML to Java Object and Java Object to XML conversion using JAXB
 
-Object to JSON and JSON to Object
+Java Objec to JSON and JSON to Java Objec using Jackson
