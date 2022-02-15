@@ -1,2 +1,3 @@
 # java-xml-json-practices
-XML to JSON and JSON to XML conversion using JAXB
+XML to Object and Object to XML conversion using JAXB
+Object to JSON and JSON to Object
