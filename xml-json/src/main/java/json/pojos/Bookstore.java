@@ -1,10 +1,11 @@
 package json.pojos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bookstore {
 
-	private List<Book> bookList;
+	private List<Book> bookList = new ArrayList<Book>();
 
 	private String name;
 

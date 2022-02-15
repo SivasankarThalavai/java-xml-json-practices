@@ -4,50 +4,50 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import xml.pojos.Book;
-import xml.pojos.Bookstore;
+import json.pojos.Post;
+import json.pojos.Tag;
 
 public class OjectToJSONAndViceVersa {
 
-	private static final String BOOKSTORE_JSON = "bookstore.json";
+	private static final String BOOKSTORE_JSON = "posts.json";
 
 	public static void main(String[] args) throws IOException {
 
-		List<Book> bookList = new ArrayList<Book>();
+		// create a post
+		Post post = new Post();
+		post.setTitle("Jackson JSON API Guide");
+		post.setId(100);
+		post.setDescription("Post about Jackson JSON API");
+		post.setContent("HTML content here");
+		post.setLastUpdatedAt(new Date());
+		post.setPostedAt(new Date());
 
-		// create books
-		Book book1 = new Book();
-		book1.setIsbn("978-0134685991");
-		book1.setName("Effective Java");
-		book1.setAuthor("Joshua Bloch");
-		book1.setPublisher("Amazon");
-		bookList.add(book1);
+		// create some predefined tags
+		Set<Tag> tags = new HashSet<Tag>();
+		Tag java = new Tag(1, "Java");
+		Tag jackson = new Tag(2, "Jackson");
+		Tag json = new Tag(3, "JSON");
+		tags.add(java);
+		tags.add(jackson);
+		tags.add(json);
 
-		Book book2 = new Book();
-		book2.setIsbn("978-0596009205");
-		book2.setName("Head First Java, 2nd Edition");
-		book2.setAuthor("Kathy Sierra");
-		book2.setPublisher("amazon");
-		bookList.add(book2);
+		// set tags to post
+		post.setTags(tags);
 
-		// create bookstore, assigning book
-		Bookstore bookstore = new Bookstore();
-		bookstore.setName("Amazon Bookstore");
-		bookstore.setLocation("Newyorkt");
-		bookstore.setBookList(bookList);
-
-		convertObjectToJSON(bookstore);
+		convertObjectToJSON(post);
 		convertJSONToObject();
 
 	}
 
-	private static void convertObjectToJSON(Bookstore bookstore) throws IOException {
+	private static void convertObjectToJSON(Post bookstore) throws IOException {
 
 		// Create ObjectMapper
 		ObjectMapper mapper = new ObjectMapper();
@@ -63,19 +63,21 @@ public class OjectToJSONAndViceVersa {
 		fileOutputStream.close();
 	}
 
-	private static Bookstore convertJSONToObject() {
+	private static Post convertJSONToObject() {
 
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 
 			// Read JSON file and convert to java object
 			InputStream fileInputStream = new FileInputStream(BOOKSTORE_JSON);
-			Bookstore bookStore = mapper.readValue(fileInputStream, Bookstore.class);
+			Post post = mapper.readValue(fileInputStream, Post.class);
 			fileInputStream.close();
 
-			List<Book> list = bookStore.getBooksList();
-			for (Book book : list) {
-				System.out.println("Book: " + book.getName() + " from " + book.getAuthor());
+			// print tags of this post
+			System.out.println("Printing tag details of post :: " + post.getTitle());
+			for (Iterator<Tag> iterator = post.getTags().iterator(); iterator.hasNext();) {
+				Tag tag = (Tag) iterator.next();
+				System.out.println(tag.getId() + " " + tag.getName());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
